@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>空地协同地面站</title>
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="container"></div>
+    <div class="time-display" id="timeDisplay"></div>
+    <div class="data-display  collapsed" id="dataDisplay">
+        <button class="toggle-btn" onclick="toggleDisplay()">数据列表📕<span id="toggle-icon">&#9660;</span>
+        </button> <!-- 收起/展开按钮 -->
+
+        <!-- 左右排列的 Agent 数据 -->
+        <div class="agents-data">
+            <div class="agent" id="agent1">
+                UAV🚁<br>
+                <span><span class="span_bold">高度: </span><span id="agent1-height">0</span> m</span><br>
+                <span><span class="span_bold">航向角: </span><span id="agent1-heading">0</span>°</span><br>
+                <span><span class="span_bold">时间: </span><span id="agent1-time">0</span>s</span>
+            </div>
+
+            <div class="agent" id="agent2">
+                UGV🚗<br>
+                <span><span class="span_bold">高度: </span><span id="agent2-height">0</span> m</span><br>
+                <span><span class="span_bold">航向角: </span><span id="agent2-heading">0</span>°</span><br>
+                <span><span class="span_bold">时间: </span><span id="agent2-time">0</span>s</span>
+            </div>
+        </div>
+
+        <!-- 公共数据区域 -->
+        <div class="public-data">
+            <h4>System🖥</h4>
+            <span><span class="span_bold">距离: </span><span id="distance">0</span> m</span><br>
+            <span><span class="span_bold">D-H: </span><span id="D-H">0</span>m</span><br>
+            <span><span class="span_bold">行驶距离: </span><span id="run_distance">0</span> m</span><br>
+            <span><span class="span_bold">原点时间: </span><span id="origin">202410280050</span></span>
+        </div>
+    </div>
+
+    <div class="settings-display" id="settingsDisplay">
+        
+        <div class="settings-content">
+            <input type="button" class="btn" value="刷新原点⚓" onclick="init_display()"/>
+            <input type="button" class="btn" value="开启刷新🏃" onclick="startTracking()"/>
+            <input type="button" class="btn" value="起飞🛫" onclick="setDepart()"/>
+            <input type="button" class="btn" value="降落🛬" onclick="setLand()"/>
+            <input type="button" class="btn" value="关闭刷新💺" onclick="stopTracking()"/>
+            <input type="button" class="btn btn-close" value="清理数据❌"  onclick="stop_display()" "/>
+        </div>
+        <button class="toggle-btn" onclick="toggleSettingsDisplay()">地面站基本设置⚙ <span id="toggle-icon">&#9650;</span>
+        </button>
+    </div>
+    <div class="left-sidebar collapsed" id="leftSidebar">
+        <div class="sidebar-content">
+            <!-- 阈值部分 -->
+            <div class="input-section">
+                <label for="threshold">原点距离阈值(m):</label>
+                <input type="text" id="threshold" placeholder="阈值">
+                <button onclick="executeThreshold()">设置</button>
+            </div>
+            <hr>
+            <!-- D-H 部分 -->
+            <div class="input-section">
+                <label for="d-input">D-H(m):</label>
+                <input type="text" id="d-input" placeholder="D 值">
+                <input type="text" id="h-input" placeholder="H 值">
+                <button onclick="executeDH()">设置</button>
+            </div>
+        </div>
+        <button class="toggle-btn" onclick="toggleLeftSidebar()">
+            命令设置✍ <span id="left-toggle-icon">&#9650;</span>
+        </button>
+    </div>
+    <div class="copyright">
+        中山大学钟任新教授团队 &copy; 2024
+    </div>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=ab191e533b11364de64e066a099d64d9"></script>
+    <script src="js/hideBlock.js"></script>
+    <script src="js/fillData.js"></script>
+    <script src="js/basicSettings.js"></script>
+    <script src="js/orderExecute.js"></script>
+    <script src="js/showTime.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
