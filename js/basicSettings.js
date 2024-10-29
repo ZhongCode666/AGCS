@@ -40,7 +40,7 @@ function startTracking() {
         alert("开始更新位置🏃‍🛫");
     }
     else{
-        alert("未初始化🤯");
+        alert("未获取原点，请先刷新原点🤯");
     }
 }
 
@@ -58,28 +58,23 @@ function stopTracking() {
         alert("结束更新位置💺");
     }
     else{
-        alert("未初始化🤯");
+        alert("未获取原点，请先刷新原点🤯");
     }   
 }
 
 async function stop_display(){
-    if(has_init){
-        ugv_marker.hide();
-        ugvway = [];
-        ugv_passedPolyline.hide();
-        uav_marker.hide();
-        uavway = [];
-        uav_passedPolyline.hide();
-        home_marker.hide();
-        cleanData();
-        endDataFilling();
-        has_init = false
-        has_depart = false;
-        alert("清理数据成功！👌");
-    }
-    else{
-        alert("未初始化🤯");
-    }
+    ugv_marker.hide();
+    ugvway = [];
+    ugv_passedPolyline.hide();
+    uav_marker.hide();
+    uavway = [];
+    uav_passedPolyline.hide();
+    home_marker.hide();
+    cleanData();
+    endDataFilling();
+    has_init = false
+    has_depart = false;
+    alert("清理数据成功！👌");
 }
 
 
@@ -100,7 +95,7 @@ async function setDepart(){
         }
     }
     else{
-        alert("未初始化🤯");
+        alert("未获取原点，请先刷新原点🤯");
     }
 }
 
@@ -121,6 +116,6 @@ async function setLand(){
         }
     }
     else{
-        alert("未初始化🤯");
+        alert("未获取原点，请先刷新原点🤯");
     }
 }
