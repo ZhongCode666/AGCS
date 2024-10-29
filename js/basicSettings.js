@@ -21,6 +21,7 @@ async function init_display(){
     ugv_marker.show();
     setOriginTime(origin_time);
     startDataFilling();
+    toggleDisplay();
     has_init = true;
     alert("获取原点成功！🛫");
 }
@@ -70,7 +71,13 @@ async function stop_display(){
     uavway = [];
     uav_passedPolyline.hide();
     home_marker.hide();
-    cleanData();
+    var re = await cleanData();
+    for(i =0; i<3; i++){
+        if (re){
+            break;
+        }
+        re = await cleanData();
+    }
     endDataFilling();
     has_init = false
     has_depart = false;

@@ -81,5 +81,15 @@ function endDataFilling(){
             clearInterval(f);
         }
     }
+    document.getElementById("D-H").innerText = `-`;
+    document.getElementById("run_distance").innerText = '-';
+    document.getElementById("origin").innerText = '-';
+    document.getElementById("distance").innerText = '-';
+    document.getElementById("agent1-heading").innerText = '-';
+    document.getElementById("agent2-heading").innerText = '-';
+    document.getElementById("agent1-time").innerText = '-';
+    document.getElementById("agent1-height").innerText = '-';
+    document.getElementById("agent2-time").innerText = '-';
+    document.getElementById("agent2-height").innerText = '-';
     update_span_interval = [];
 }

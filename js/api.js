@@ -116,7 +116,7 @@ async function cleanData() {
         const data = await response.json();
         return true;
     } catch (error) {
-        console.error("Failed to fetch uav new position:", error);
+        console.error("Failed to clean time str:", error);
         return false;
     }
 }

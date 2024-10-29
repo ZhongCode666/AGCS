@@ -18,26 +18,26 @@
         <div class="agents-data">
             <div class="agent" id="agent1">
                 UAV🚁<br>
-                <span><span class="span_bold">高度: </span><span id="agent1-height">0</span> m</span><br>
-                <span><span class="span_bold">航向角: </span><span id="agent1-heading">0</span>°</span><br>
-                <span><span class="span_bold">时间: </span><span id="agent1-time">0</span>s</span>
+                <span><span class="span_bold">高度: </span><span id="agent1-height">-</span> m</span><br>
+                <span><span class="span_bold">航向角: </span><span id="agent1-heading">-</span>°</span><br>
+                <span><span class="span_bold">时间: </span><span id="agent1-time">-</span>s</span>
             </div>
 
             <div class="agent" id="agent2">
                 UGV🚗<br>
-                <span><span class="span_bold">高度: </span><span id="agent2-height">0</span> m</span><br>
-                <span><span class="span_bold">航向角: </span><span id="agent2-heading">0</span>°</span><br>
-                <span><span class="span_bold">时间: </span><span id="agent2-time">0</span>s</span>
+                <span><span class="span_bold">高度: </span><span id="agent2-height">-</span> m</span><br>
+                <span><span class="span_bold">航向角: </span><span id="agent2-heading">-</span>°</span><br>
+                <span><span class="span_bold">时间: </span><span id="agent2-time">-</span>s</span>
             </div>
         </div>
 
         <!-- 公共数据区域 -->
         <div class="public-data">
             <h4>System🖥</h4>
-            <span><span class="span_bold">距离: </span><span id="distance">0</span> m</span><br>
-            <span><span class="span_bold">D-H: </span><span id="D-H">0</span>m</span><br>
-            <span><span class="span_bold">行驶距离: </span><span id="run_distance">0</span> m</span><br>
-            <span><span class="span_bold">原点时间: </span><span id="origin">202410280050</span></span>
+            <span><span class="span_bold">空地距离: </span><span id="distance">-</span> m</span><br>
+            <span><span class="span_bold">领航距离-高度（D-H）: </span><span id="D-H">-</span>m</span><br>
+            <span><span class="span_bold">车行驶距离: </span><span id="run_distance">-</span> m</span><br>
+            <span><span class="span_bold">原点时间: </span><span id="origin">-</span></span>
         </div>
     </div>
 
@@ -45,10 +45,10 @@
         
         <div class="settings-content">
             <input type="button" class="btn" value="刷新原点⚓" onclick="init_display()"/>
-            <input type="button" class="btn" value="开启刷新🏃" onclick="startTracking()"/>
+            <input type="button" class="btn" value="开启刷新轨迹🏃" onclick="startTracking()"/>
             <input type="button" class="btn" value="起飞🛫" onclick="setDepart()"/>
             <input type="button" class="btn" value="降落🛬" onclick="setLand()"/>
-            <input type="button" class="btn" value="关闭刷新💺" onclick="stopTracking()"/>
+            <input type="button" class="btn" value="暂停刷新轨迹💺" onclick="stopTracking()"/>
             <input type="button" class="btn btn-close" value="清理数据❌"  onclick="stop_display()" "/>
         </div>
         <button class="toggle-btn" onclick="toggleSettingsDisplay()">地面站基本设置⚙ <span id="toggle-icon">&#9650;</span>
