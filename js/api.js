@@ -30,10 +30,10 @@ async function fetchCenter() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         console.info(`请求原点结果${data.longitude}, ${data.latitude}`)
-        return [wgs84ToGcj02(data.longitude, data.latitude), data.time] || null;
+        return [wgs84ToGcj02(data.longitude, data.latitude), data.time] || [];
     } catch (error) {
         console.error("Failed to fetch center:", error);
-        return null;
+        return [];
     }
 }
 
@@ -82,10 +82,10 @@ async function fetchUGVpos() {
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
-        return [wgs84ToGcj02(data.longitude, data.latitude), data.time] || null;
+        return [wgs84ToGcj02(data.longitude, data.latitude), data.time] || [];
     } catch (error) {
         console.error("Failed to fetch ugv new position:", error);
-        return null;
+        return [];
     }
 }
 
@@ -99,10 +99,10 @@ async function fetchUAVpos() {
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
-        return [wgs84ToGcj02(data.longitude, data.latitude), data.time] || null;
+        return [wgs84ToGcj02(data.longitude, data.latitude), data.time] || [];
     } catch (error) {
         console.error("Failed to fetch uav new position:", error);
-        return null;
+        return [];
     }
 }
 
@@ -130,10 +130,10 @@ async function fetchUGVheight() {
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
-        return [data.height, data.time] || null;
+        return [data.height, data.time] || [];
     } catch (error) {
         console.error("Failed to fetch ugv new height:", error);
-        return null;
+        return [];
     }
 }
 
@@ -147,10 +147,10 @@ async function fetchUAVheight() {
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
-        return [data.height, data.time] || null;
+        return [data.height, data.time] || [];
     } catch (error) {
         console.error("Failed to fetch uav new height:", error);
-        return null;
+        return [];
     }
 }
 

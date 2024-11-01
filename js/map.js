@@ -112,7 +112,7 @@ async function initializeMap() {
 
 async function updateUGVMarkerPosition() {
     const new_pos = await fetchUGVpos();
-    if (!( new_pos == null)) {
+    if (new_pos.length > 0) {
         ugv_marker.setPosition(new_pos[0]); // 更新 marker 的位置
         map.setCenter(new_pos[0]);
         ugvway.push(new_pos[0]);
@@ -128,7 +128,7 @@ async function updateUGVMarkerPosition() {
 
 async function updateUAVMarkerPosition() {
     const new_pos = await fetchUAVpos();
-    if (!(new_pos == null)) {
+    if (new_pos.length > 0) {
         uav_marker.setPosition(new_pos[0]); // 更新 marker 的位置
         uavway.push(new_pos[0]);
         uav_passedPolyline.setPath(uavway);
