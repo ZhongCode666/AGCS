@@ -36,8 +36,8 @@ function startTracking() {
         if (uav_trackingInterval) {
             clearInterval(uav_trackingInterval);
         }
-        uav_trackingInterval = setInterval(updateUAVMarkerPosition, 100); // 每 1 秒请求一次接口
-        ugv_trackingInterval = setInterval(updateUGVMarkerPosition, 100); // 每 1 秒请求一次接口
+        uav_trackingInterval = setInterval(updateUAVMarkerPosition, 500); // 每 1 秒请求一次接口
+        ugv_trackingInterval = setInterval(updateUGVMarkerPosition, 500); // 每 1 秒请求一次接口
         alert("开始更新位置🏃‍🛫");
     }
     else{

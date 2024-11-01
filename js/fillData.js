@@ -70,7 +70,7 @@ function startDataFilling(){
         updateUavYawSpan, updateDistanceSpan, updateDHspan
     ];
     for (const f of funlist){
-        update_span_interval.push(setInterval(f, 100));
+        update_span_interval.push(setInterval(f, 500));
     }
 
 }
