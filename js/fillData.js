@@ -1,4 +1,4 @@
-let update_span_interval = [];
+let update_span_interval = null;
 
 async function updateUgvHeightSpan(){
     const ugv_h = await fetchUGVheight();
@@ -65,22 +65,40 @@ async function setRunDistanceSpan(d){
 }
 
 function startDataFilling(){
-    const funlist = [
-        updateUgvHeightSpan, updateUavHeightSpan, updateUgvYawSpan,
-        updateUavYawSpan, updateDistanceSpan, updateDHspan
-    ];
-    for (const f of funlist){
-        update_span_interval.push(setInterval(f, 500));
+    // const funlist = [
+    //     updateUgvHeightSpan, updateUavHeightSpan, updateUgvYawSpan,
+    //     updateUavYawSpan, updateDistanceSpan, updateDHspan
+    // ];
+    // for (const f of funlist){
+    //     update_span_interval.push(setInterval(f, 100));
+    // }
+    if (update_span_interval){
+        clearInterval(update_span_interval);
     }
-
+    update_span_interval = setInterval(setAllSpan, 100);
 }
 
-function endDataFilling(){
-    for (const f of update_span_interval){
-        if(f){
-            clearInterval(f);
-        }
+
+async function setAllSpan(){
+    const data = await fetchSystemData();
+    if (data != null){
+        document.getElementById("D-H").innerText = `${data.D == null? '-':Math.round(data.D)} - ${data.H == null? '-':Math.round(data.H)}` ;
+        document.getElementById("distance").innerText = data.distance == null ?'-': Math.round(data.distance);
+        document.getElementById("agent1-heading").innerText = data.uav_yaw == null ?'-': Math.round(data.uav_yaw);
+        document.getElementById("agent2-heading").innerText = data.ugv_yaw == null ?'-': - Math.round(data.ugv_yaw);
+        document.getElementById("agent1-time").innerText = data.uav_t == null ?'-': Math.round(data.uav_t);
+        document.getElementById("agent1-height").innerText = data.uav_h == null ?'-': Math.round(data.uav_h);
+        document.getElementById("agent2-time").innerText = data.ugv_t == null ?'-': Math.round(data.ugv_t);
+        document.getElementById("agent2-height").innerText = data.ugv_h == null ?'-': Math.round(data.ugv_h);
     }
+}
+
+
+function endDataFilling(){
+    if (update_span_interval){
+        clearInterval(update_span_interval);
+    }
+    update_span_interval = null;
     document.getElementById("D-H").innerText = `-`;
     document.getElementById("run_distance").innerText = '-';
     document.getElementById("origin").innerText = '-';

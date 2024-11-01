@@ -16,3 +16,12 @@ function toggleLeftSidebar() {
     sidebar.classList.toggle('collapsed'); // 切换类名以显示或隐藏内容
 }
 
+
+function alwaysDisplayData() {
+    const dataDisplay = document.getElementById('dataDisplay');
+    
+    // 强制移除 'collapsed' 类，确保内容是展开的
+    if (dataDisplay.classList.contains('collapsed')) {
+        dataDisplay.classList.remove('collapsed');
+    }
+}

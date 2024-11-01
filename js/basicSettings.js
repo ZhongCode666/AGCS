@@ -1,5 +1,5 @@
 
-let has_init = false, has_depart = false;
+let has_init = false, has_depart = false, trackingInterval = null;
 
 async function init_display(){
     const center = await fetchCenter();
@@ -21,23 +21,28 @@ async function init_display(){
     ugv_marker.show();
     setOriginTime(origin_time);
     startDataFilling();
-    toggleDisplay();
+    alwaysDisplayData();
     has_init = true;
     alert("获取原点成功！🛫");
+    startTracking();
 }
 
 // 开始监听并更新位置
 function startTracking() {
     if(has_init){
         // 确保不会重复设置监听
-        if (ugv_trackingInterval) {
-            clearInterval(ugv_trackingInterval);
+        // if (ugv_trackingInterval) {
+        //     clearInterval(ugv_trackingInterval);
+        // }
+        // if (uav_trackingInterval) {
+        //     clearInterval(uav_trackingInterval);
+        // }
+        // uav_trackingInterval = setInterval(updateUAVMarkerPosition, 500); // 每 1 秒请求一次接口
+        // ugv_trackingInterval = setInterval(updateUGVMarkerPosition, 500); // 每 1 秒请求一次接口
+        if (trackingInterval) {
+            clearInterval(trackingInterval);
         }
-        if (uav_trackingInterval) {
-            clearInterval(uav_trackingInterval);
-        }
-        uav_trackingInterval = setInterval(updateUAVMarkerPosition, 500); // 每 1 秒请求一次接口
-        ugv_trackingInterval = setInterval(updateUGVMarkerPosition, 500); // 每 1 秒请求一次接口
+        trackingInterval = setInterval(updateUavUgvPos, 100);
         alert("开始更新位置🏃‍🛫");
     }
     else{
@@ -48,13 +53,17 @@ function startTracking() {
 // 停止监听位置
 function stopTracking() {
     if(has_init){
-        if (ugv_trackingInterval) {
-            clearInterval(ugv_trackingInterval);
-            ugv_trackingInterval = null;
-        }
-        if (uav_trackingInterval) {
-            clearInterval(uav_trackingInterval);
-            uav_trackingInterval = null;
+        // if (ugv_trackingInterval) {
+        //     clearInterval(ugv_trackingInterval);
+        //     ugv_trackingInterval = null;
+        // }
+        // if (uav_trackingInterval) {
+        //     clearInterval(uav_trackingInterval);
+        //     uav_trackingInterval = null;
+        // }
+        if (trackingInterval) {
+            clearInterval(trackingInterval);
+            trackingInterval = null;
         }
         alert("结束更新位置💺");
     }
@@ -64,6 +73,7 @@ function stopTracking() {
 }
 
 async function stop_display(){
+    endDataFilling();
     ugv_marker.hide();
     ugvway = [];
     ugv_passedPolyline.hide();
@@ -71,16 +81,13 @@ async function stop_display(){
     uavway = [];
     uav_passedPolyline.hide();
     home_marker.hide();
-    var re = await cleanData();
-    for(i =0; i<3; i++){
-        if (re){
-            break;
-        }
-        re = await cleanData();
-    }
-    endDataFilling();
     has_init = false
     has_depart = false;
+    var re = await cleanData();
+    if (!re){
+        alert("清理数据失败，稍后重试！🤮");
+        return;
+    }
     alert("清理数据成功！👌");
 }
 

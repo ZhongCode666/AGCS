@@ -251,3 +251,37 @@ async function fetchDistance() {
         return null;
     }
 }
+
+
+// 获取系统数据
+async function fetchSystemData() {
+    try {
+        const response = await fetch(
+            `${api_config.apiBaseUrl}systemData`,
+            {timeout : api_config.timeout, method: 'GET'},
+        );
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        return data || null;
+    } catch (error) {
+        console.error("Failed to fetch SystemData:", error);
+        return null;
+    }
+}
+
+
+// 获取系统位置
+async function fetchSystemPos() {
+    try {
+        const response = await fetch(
+            `${api_config.apiBaseUrl}systemPos`,
+            {timeout : api_config.timeout, method: 'GET'},
+        );
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        return data || null;
+    } catch (error) {
+        console.error("Failed to fetch SystemPos:", error);
+        return null;
+    }
+}

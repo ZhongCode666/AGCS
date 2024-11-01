@@ -139,3 +139,31 @@ async function updateUAVMarkerPosition() {
         console.error("Invalid position data from API");
     }
 }
+
+async function updateUavUgvPos(){
+    const new_pos = await fetchUAVpos();
+    if (new_pos) {
+        if(new_pos.uav_longitude != null && new_pos.uav_latitude != null){
+            const uavpos = wgs84ToGcj02(new_pos.uav_longitude, new_pos.uav_latitude);
+            if (uavpos != null){
+                uav_marker.setPosition(uavpos); // 更新 marker 的位置
+                uavway.push(uavpos);
+                uav_passedPolyline.setPath(uavway);
+                uav_passedPolyline.show();
+                console.log("UAV Marker moved to:", uavpos);
+            }
+        }
+        if(new_pos.ugv_longitude != null && new_pos.ugv_latitude != null){
+            const ugvpos = wgs84ToGcj02(new_pos.ugv_longitude, new_pos.ugv_latitude);
+            if (ugvpos != null){
+                ugv_marker.setPosition(ugvpos); // 更新 marker 的位置
+                ugvway.push(ugvpos);
+                ugv_passedPolyline.setPath(ugvway);
+                ugv_passedPolyline.show();
+                console.log("UGV Marker moved to:", ugvpos);
+            }
+        }
+    } else {
+        console.error("Invalid position data from API");
+    }
+}
