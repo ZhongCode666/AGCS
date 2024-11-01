@@ -141,7 +141,7 @@ async function updateUAVMarkerPosition() {
 }
 
 async function updateUavUgvPos(){
-    const new_pos = await fetchUAVpos();
+    const new_pos = await fetchSystemPos();
     if (new_pos) {
         if(new_pos.uav_longitude != null && new_pos.uav_latitude != null){
             const uavpos = wgs84ToGcj02(new_pos.uav_longitude, new_pos.uav_latitude);
@@ -160,6 +160,7 @@ async function updateUavUgvPos(){
                 ugvway.push(ugvpos);
                 ugv_passedPolyline.setPath(ugvway);
                 ugv_passedPolyline.show();
+                setRunDistanceSpan(ugv_passedPolyline.getLength());
                 console.log("UGV Marker moved to:", ugvpos);
             }
         }
