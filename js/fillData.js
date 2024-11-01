@@ -2,7 +2,7 @@ let update_span_interval = [];
 
 async function updateUgvHeightSpan(){
     const ugv_h = await fetchUGVheight();
-    if(ugv_h == null){
+    if(ugv_h.length == 0){
         console.error("set ugv height span failed");
         return;
     }
@@ -12,7 +12,7 @@ async function updateUgvHeightSpan(){
 
 async function updateUavHeightSpan(){
     const uav_h = await fetchUAVheight();
-    if(uav_h == null){
+    if(uav_h.length == 0){
         console.error("set uav height span failed");
         return;
     }

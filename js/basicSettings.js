@@ -3,7 +3,7 @@ let has_init = false, has_depart = false;
 
 async function init_display(){
     const center = await fetchCenter();
-    if (center == null){
+    if (center.length == 0){
         alert("原点未设置🤯");
         return;
     }
