@@ -23,8 +23,11 @@ async function init_display(){
     startDataFilling();
     alwaysDisplayData();
     has_init = true;
+    if (trackingInterval) {
+        clearInterval(trackingInterval);
+    }
+    trackingInterval = setInterval(updateUavUgvPos, 100);
     alert("获取原点成功！🛫");
-    startTracking();
 }
 
 // 开始监听并更新位置
@@ -74,6 +77,10 @@ function stopTracking() {
 
 async function stop_display(){
     endDataFilling();
+    if (trackingInterval) {
+        clearInterval(trackingInterval);
+        trackingInterval = null;
+    }
     ugv_marker.hide();
     ugvway = [];
     ugv_passedPolyline.hide();
@@ -95,7 +102,7 @@ async function stop_display(){
 async function setDepart(){
     if(has_init){
         if (! has_depart){
-           const flag = fetchDepart();
+           const flag = await fetchDepart();
            if(flag){
                 has_depart = true;
                 alert('起飞成功😀'); 
@@ -116,7 +123,7 @@ async function setDepart(){
 async function setLand(){
     if(has_init){
         if (has_depart){
-           const flag = fetchLand();
+           const flag = await fetchLand();
            if(flag){
                 has_depart = false;
                 alert('降落成功😀'); 

@@ -156,6 +156,7 @@ async function updateUavUgvPos(){
         if(new_pos.ugv_longitude != null && new_pos.ugv_latitude != null){
             const ugvpos = wgs84ToGcj02(new_pos.ugv_longitude, new_pos.ugv_latitude);
             if (ugvpos != null){
+                map.setCenter(ugvpos);
                 ugv_marker.setPosition(ugvpos); // 更新 marker 的位置
                 ugvway.push(ugvpos);
                 ugv_passedPolyline.setPath(ugvway);

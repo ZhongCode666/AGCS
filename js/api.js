@@ -27,7 +27,13 @@ async function fetchCenter() {
             `${api_config.apiBaseUrl}originPos`,
             {timeout : api_config.timeout, method: 'GET'},
         );
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+            const data = await response.json();
+            if (data.detail){
+                alert(`${data.detail}🙃`)
+            }
+            throw new Error(`HTTP error !tt status: ${response.status}`);
+        }
         const data = await response.json();
         console.info(`请求原点结果${data.longitude}, ${data.latitude}`)
         return [wgs84ToGcj02(data.longitude, data.latitude), data.time] || [];
