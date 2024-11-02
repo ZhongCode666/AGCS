@@ -84,6 +84,7 @@ async function setAllSpan(){
     if (data != null){
         document.getElementById("D-H").innerText = `${data.D == null? '-':Math.round(data.D)} - ${data.H == null? '-':Math.round(data.H)}` ;
         document.getElementById("distance").innerText = data.distance == null ?'-': Math.round(data.distance);
+        document.getElementById("agent1-title").innerText = `UAV🚁${data.depart != null && data.depart?'🛫': '🛬'}`;
         document.getElementById("agent1-heading").innerText = data.uav_yaw == null ?'-': Math.round(data.uav_yaw);
         document.getElementById("agent2-heading").innerText = data.ugv_yaw == null ?'-': - Math.round(data.ugv_yaw);
         document.getElementById("agent1-time").innerText = data.uav_t == null ?'-': Math.round(data.uav_t);
