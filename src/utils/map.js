@@ -60,7 +60,7 @@ async function initializeMap() {
 
     const caricon = new AMap.Icon({
         size: new AMap.Size(24, 24), // 设置图标大小，例如 32x32 像素
-        image: "assets/car.png", // 图标的 URL
+        image: "public/car.png", // 图标的 URL
         imageSize: new AMap.Size(24, 24) // 设置图标的实际大小，确保缩放正确
     });
 
@@ -72,7 +72,7 @@ async function initializeMap() {
     });
     const staricon = new AMap.Icon({
         size: new AMap.Size(20, 20), // 设置图标大小，例如 32x32 像素
-        image: "assets/star.png", // 图标的 URL
+        image: "public/star.png", // 图标的 URL
         imageSize: new AMap.Size(20, 20) // 设置图标的实际大小，确保缩放正确
     });
 
@@ -84,7 +84,7 @@ async function initializeMap() {
     });
     const droneicon = new AMap.Icon({
         size: new AMap.Size(20, 20), // 设置图标大小，例如 32x32 像素
-        image: "assets/drone.png", // 图标的 URL
+        image: "public/drone.png", // 图标的 URL
         imageSize: new AMap.Size(20, 20) // 设置图标的实际大小，确保缩放正确
     });
 
