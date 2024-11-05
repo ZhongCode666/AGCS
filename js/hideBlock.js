@@ -33,7 +33,7 @@ function alwaysDisplayData() {
 function alwwaysDisplayRealtime() {
     const sidebar = document.getElementById('photoPanel');
     // 强制移除 'collapsed' 类，确保内容是展开的
-    if (dataDisplay.classList.contains('collapsed')) {
-        dataDisplay.classList.remove('collapsed');
+    if (sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
     }
 }
