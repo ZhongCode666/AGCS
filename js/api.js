@@ -291,3 +291,48 @@ async function fetchSystemPos() {
         return null;
     }
 }
+
+
+function fetchPhotos() {
+    const urls = [
+        'http://119.29.181.98:26969/ugvLatestPhoto',  // 替换为实际的接口1
+        'http://119.29.181.98:26969/uavLatestPhoto'   // 替换为实际的接口2
+    ];
+
+    // 本地备用图片路径
+    const localImages = "assets/no_image.png";
+
+    urls.forEach((url, index) => {
+        fetch(url)
+            .then(response => {
+                if (response.status != 200) {
+                    // 如果返回 404，使用本地图片
+                    return localImages;
+                } else if (!response.ok) {
+                    // 如果有其他错误，抛出异常
+                    throw new Error('Network response was not ok');
+                }
+                return response.blob();
+            })
+            .then(data => {
+                const imgElement = document.getElementById(`photo${index}`);
+                if (imgElement) {
+                    // 检查返回的数据类型
+                    if (typeof data === 'string') {
+                        // data 是字符串时，表示是本地图片路径
+                        imgElement.src = data;
+                    } else {
+                        // data 是 blob 时，表示是从 fetch 获取的图片
+                        const imgUrl = URL.createObjectURL(data);
+                        // 释放旧的 URL，防止内存泄漏
+                        if (imgElement.src) {
+                            URL.revokeObjectURL(imgElement.src);
+                        }
+                        // 更新图片的 src
+                        imgElement.src = imgUrl;
+                    }
+                }
+            })
+            .catch(error => console.error('Error fetching photo:', error));
+    });
+}

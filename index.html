@@ -10,7 +10,20 @@
 <body>
     <div id="container"></div>
     <div class="time-display" id="timeDisplay"></div>
-    <div class="data-display  collapsed" id="dataDisplay">
+    <div id="photoPanel" class="panel  collapsed">
+        <div class="photo-row" id="realTimePhoto">
+          <div class="photo-container">
+            <img id="photo0" class="photo" src="assets/no_image.png" alt="UGV Photo">
+            <span class="photo-caption">UGV🚗📸</span>
+          </div>
+          <div class="photo-container">
+            <img id="photo1" class="photo" src="assets/no_image.png" alt="UAV Photo">
+            <span class="photo-caption">UAV🚁📸</span>
+          </div>
+        </div>
+        <button id="photoButton" class="button-common" onclick="toggleRealtime()">实时画面📹<span id="toggle-icon">&#9650;</span></button>
+    </div>
+    <div class="data-display collapsed" id="dataDisplay">
         <button class="toggle-btn" onclick="toggleDisplay()">数据列表📕<span id="toggle-icon">&#9660;</span>
         </button> <!-- 收起/展开按钮 -->
 

@@ -1,5 +1,5 @@
 
-let has_init = false, has_depart = false, trackingInterval = null;
+let has_init = false, has_depart = false, trackingInterval = null, videoInterval = null;
 
 async function init_display(){
     const center = await fetchCenter();
@@ -27,6 +27,11 @@ async function init_display(){
         clearInterval(trackingInterval);
     }
     trackingInterval = setInterval(updateUavUgvPos, 100);
+    if (videoInterval) {
+        clearInterval(videoInterval);
+    }
+    videoInterval = setInterval(fetchPhotos, 100);
+    alwwaysDisplayRealtime();
     alert("获取原点成功！🛫");
 }
 
@@ -80,6 +85,10 @@ async function stop_display(){
     if (trackingInterval) {
         clearInterval(trackingInterval);
         trackingInterval = null;
+    }
+    if (videoInterval) {
+        clearInterval(videoInterval);
+        videoInterval = null;
     }
     ugv_marker.hide();
     ugvway = [];

@@ -12,7 +12,11 @@ function toggleSettingsDisplay() {
 
 function toggleLeftSidebar() {
     const sidebar = document.getElementById('leftSidebar');
-    const toggleIcon = document.getElementById('left-toggle-icon');
+    sidebar.classList.toggle('collapsed'); // 切换类名以显示或隐藏内容
+}
+
+function toggleRealtime() {
+    const sidebar = document.getElementById('photoPanel');
     sidebar.classList.toggle('collapsed'); // 切换类名以显示或隐藏内容
 }
 
@@ -20,6 +24,14 @@ function toggleLeftSidebar() {
 function alwaysDisplayData() {
     const dataDisplay = document.getElementById('dataDisplay');
     
+    // 强制移除 'collapsed' 类，确保内容是展开的
+    if (dataDisplay.classList.contains('collapsed')) {
+        dataDisplay.classList.remove('collapsed');
+    }
+}
+
+function alwwaysDisplayRealtime() {
+    const sidebar = document.getElementById('photoPanel');
     // 强制移除 'collapsed' 类，确保内容是展开的
     if (dataDisplay.classList.contains('collapsed')) {
         dataDisplay.classList.remove('collapsed');
