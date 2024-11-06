@@ -19,13 +19,35 @@ async function loadConfig() {
 loadConfig();
 
 
+const timeoutFetch = (url, options = {}, timeout = 5000) => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+  
+    // 合并选项，确保请求包含 AbortController 的 signal
+    const config = {
+      ...options,
+      signal: controller.signal
+    };
+  
+    return fetch(url, config)
+      .finally(() => clearTimeout(timeoutId))  // 清除超时计时器
+      .catch((error) => {
+        if (error.name === 'AbortError') {
+          return Promise.reject(new Error('Request timed out'));
+        }
+        return Promise.reject(error);
+      });
+  };
+  
+
 
 // 获取地图中心点
 async function fetchCenter() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}originPos`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url = `${api_config.apiBaseUrl}originPos`,
+            options= {method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) {
             const data = await response.json();
@@ -46,9 +68,10 @@ async function fetchCenter() {
 // 请求起飞
 async function fetchDepart() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}setDepart`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}setDepart`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -64,9 +87,10 @@ async function fetchDepart() {
 // 请求降落
 async function fetchLand() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}setLand`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}setLand`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -82,9 +106,10 @@ async function fetchLand() {
 // 获取ugv新的位置点
 async function fetchUGVpos() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}ugvPos`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}ugvPos`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -99,9 +124,10 @@ async function fetchUGVpos() {
 // 获取uav新的位置点
 async function fetchUAVpos() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}uavPos`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}uavPos`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -114,9 +140,10 @@ async function fetchUAVpos() {
 
 async function cleanData() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}cleanTimeStr`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}cleanTimeStr`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -130,9 +157,10 @@ async function cleanData() {
 // 获取ugv新的高度
 async function fetchUGVheight() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}ugvHeight`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}ugvHeight`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -147,9 +175,10 @@ async function fetchUGVheight() {
 // 获取uav新的高度
 async function fetchUAVheight() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}uavHeight`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}uavHeight`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -164,9 +193,10 @@ async function fetchUAVheight() {
 // 设置DH
 async function setDH(D, H) {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}setDH?D=${D}&H=${H}`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}setDH?D=${D}&H=${H}`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -180,9 +210,10 @@ async function setDH(D, H) {
 // 设置DH
 async function checkDH() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}checkDH`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}checkDH`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -196,9 +227,10 @@ async function checkDH() {
 // 设置阈值
 async function setth(th) {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}setThreshold?threshold=${th}`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}setThreshold?threshold=${th}`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -212,9 +244,10 @@ async function setth(th) {
 // 获取ugv新的航向角
 async function fetchUGVyaw() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}ugvOrientation`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}ugvOrientation`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -229,9 +262,10 @@ async function fetchUGVyaw() {
 // 获取uav新的航向角
 async function fetchUAVyaw() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}uavOrientation`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}uavOrientation`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -245,9 +279,10 @@ async function fetchUAVyaw() {
 // 获取距离
 async function fetchDistance() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}getDistance`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}getDistance`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -262,9 +297,10 @@ async function fetchDistance() {
 // 获取系统数据
 async function fetchSystemData() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}systemData`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}systemData`,
+            options={method: 'GET'},
+            timeout=api_config.timeout
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -279,9 +315,10 @@ async function fetchSystemData() {
 // 获取系统位置
 async function fetchSystemPos() {
     try {
-        const response = await fetch(
-            `${api_config.apiBaseUrl}systemPos`,
-            {timeout : api_config.timeout, method: 'GET'},
+        const response = await timeoutFetch(
+            url=`${api_config.apiBaseUrl}systemPos`,
+            options={method: 'GET'},
+            timeout=api_config.timeout, 
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -295,15 +332,15 @@ async function fetchSystemPos() {
 
 function fetchPhotos() {
     const urls = [
-        'http://119.29.181.98:26969/ugvLatestPhoto',  // 替换为实际的接口1
-        'http://119.29.181.98:26969/uavLatestPhoto'   // 替换为实际的接口2
+        `${api_config.apiBaseUrl}ugvLatestPhoto`,  // 替换为实际的接口1
+        `${api_config.apiBaseUrl}uavLatestPhoto`   // 替换为实际的接口2
     ];
 
     // 本地备用图片路径
     const localImages = "assets/no_image.png";
 
     urls.forEach((url, index) => {
-        fetch(url)
+        timeoutFetch(url=url, timeout=api_config.timeout)
             .then(response => {
                 if (response.status != 200) {
                     // 如果返回 404，使用本地图片

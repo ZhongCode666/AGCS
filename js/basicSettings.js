@@ -26,11 +26,11 @@ async function init_display(){
     if (trackingInterval) {
         clearInterval(trackingInterval);
     }
-    trackingInterval = setInterval(updateUavUgvPos, 100);
+    trackingInterval = setInterval(updateUavUgvPos, 300);
     if (videoInterval) {
         clearInterval(videoInterval);
     }
-    videoInterval = setInterval(fetchPhotos, 100);
+    videoInterval = setInterval(fetchPhotos, 300);
     alwwaysDisplayRealtime();
     alert("获取原点成功！🛫");
 }
@@ -50,7 +50,7 @@ function startTracking() {
         if (trackingInterval) {
             clearInterval(trackingInterval);
         }
-        trackingInterval = setInterval(updateUavUgvPos, 100);
+        trackingInterval = setInterval(updateUavUgvPos, 300);
         alert("开始更新位置🏃‍🛫");
     }
     else{

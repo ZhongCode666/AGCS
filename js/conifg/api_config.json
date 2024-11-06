@@ -1,4 +1,4 @@
 {
     "apiBaseUrl": "http://119.29.181.98:26969/",
-    "timeout": 2000
+    "timeout": 500
 }
