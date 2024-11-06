@@ -4,7 +4,7 @@ let api_config = {};  // 配置对象
 // 异步加载配置文件
 async function loadConfig() {
     try {
-        const response = await fetch('js\\conifg\\api_config.json');
+        const response = await fetch('./src/config/api_config.json'); 
         if (!response.ok) {
             throw new Error(`Failed to load config file: ${response.status}`);
         }
