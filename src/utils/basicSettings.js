@@ -1,5 +1,6 @@
 
 let has_init = false, has_depart = false, trackingInterval = null, videoInterval = null;
+let api_timeout = 300, video_timeout = 500;
 
 async function init_display(){
     const center = await fetchCenter();
@@ -26,11 +27,11 @@ async function init_display(){
     if (trackingInterval) {
         clearInterval(trackingInterval);
     }
-    trackingInterval = setInterval(updateUavUgvPos, 300);
+    trackingInterval = setInterval(updateUavUgvPos, api_timeout);
     if (videoInterval) {
         clearInterval(videoInterval);
     }
-    videoInterval = setInterval(fetchPhotos, 300);
+    videoInterval = setInterval(fetchPhotos, video_timeout);
     alwwaysDisplayRealtime();
     alert("获取原点成功！🛫");
 }
@@ -50,7 +51,7 @@ function startTracking() {
         if (trackingInterval) {
             clearInterval(trackingInterval);
         }
-        trackingInterval = setInterval(updateUavUgvPos, 300);
+        trackingInterval = setInterval(updateUavUgvPos, api_timeout);
         alert("开始更新位置🏃‍🛫");
     }
     else{

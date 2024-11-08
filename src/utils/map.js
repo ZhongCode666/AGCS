@@ -45,7 +45,7 @@ let map, ugv_marker, ugv_passedPolyline, uav_marker, uav_passedPolyline, home_ma
 let ugv_t, uav_t;
 let origin_time;
 let ugv_trackingInterval, uav_trackingInterval; // 用于存储定时器 ID
-let ugvway = [], uavway = [];
+let ugvway = [], uavway = [], pre_len=0;
 
 // 初始化地图
 async function initializeMap() {
@@ -143,26 +143,28 @@ async function updateUAVMarkerPosition() {
 async function updateUavUgvPos(){
     const new_pos = await fetchSystemPos();
     if (new_pos) {
+        if(new_pos.ugv_longitude != null && new_pos.ugv_latitude != null){
+            const ugvpos = wgs84ToGcj02(new_pos.ugv_longitude, new_pos.ugv_latitude);
+            if (ugvpos != null && ugvpos[0] != null && ugvpos[1] != null){
+                ugvway.push(ugvpos);
+                cur_len = ugv_passedPolyline.getLength();
+                map.setCenter(ugvpos);
+                ugv_marker.setPosition(ugvpos); // 更新 marker 的位置
+                ugv_passedPolyline.setPath(ugvway);
+                ugv_passedPolyline.show();
+                pre_len = cur_len;
+                setRunDistanceSpan(cur_len);
+                console.log("UGV Marker moved to:", ugvpos);
+            }
+        }
         if(new_pos.uav_longitude != null && new_pos.uav_latitude != null){
             const uavpos = wgs84ToGcj02(new_pos.uav_longitude, new_pos.uav_latitude);
-            if (uavpos != null){
+            if (uavpos != null && uavpos[0] != null && uavpos[1] != null){
                 uav_marker.setPosition(uavpos); // 更新 marker 的位置
                 uavway.push(uavpos);
                 uav_passedPolyline.setPath(uavway);
                 uav_passedPolyline.show();
                 console.log("UAV Marker moved to:", uavpos);
-            }
-        }
-        if(new_pos.ugv_longitude != null && new_pos.ugv_latitude != null){
-            const ugvpos = wgs84ToGcj02(new_pos.ugv_longitude, new_pos.ugv_latitude);
-            if (ugvpos != null){
-                map.setCenter(ugvpos);
-                ugv_marker.setPosition(ugvpos); // 更新 marker 的位置
-                ugvway.push(ugvpos);
-                ugv_passedPolyline.setPath(ugvway);
-                ugv_passedPolyline.show();
-                setRunDistanceSpan(ugv_passedPolyline.getLength());
-                console.log("UGV Marker moved to:", ugvpos);
             }
         }
     } else {

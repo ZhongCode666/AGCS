@@ -340,7 +340,7 @@ function fetchPhotos() {
     const localImages = "assets/no_image.png";
 
     urls.forEach((url, index) => {
-        timeoutFetch(url=url, timeout=api_config.timeout)
+        timeoutFetch(url=url, timeout=api_config.photo_timeout)
             .then(response => {
                 if (response.status != 200) {
                     // 如果返回 404，使用本地图片

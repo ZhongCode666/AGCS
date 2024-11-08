@@ -87,9 +87,9 @@ async function setAllSpan(){
         document.getElementById("agent1-title").innerText = `UAV🚁${data.depart != null && data.depart?'🛫': '🛬'}`;
         document.getElementById("agent1-heading").innerText = data.uav_yaw == null ?'-': Math.round(data.uav_yaw);
         document.getElementById("agent2-heading").innerText = data.ugv_yaw == null ?'-': - Math.round(data.ugv_yaw);
-        document.getElementById("agent1-time").innerText = data.uav_t == null ?'-': Math.round(data.uav_t);
+        document.getElementById("agent1-time").innerText = data.uav_t == null ?'-': data.uav_t.toFixed(1);
         document.getElementById("agent1-height").innerText = data.uav_h == null ?'-': Math.round(data.uav_h);
-        document.getElementById("agent2-time").innerText = data.ugv_t == null ?'-': Math.round(data.ugv_t);
+        document.getElementById("agent2-time").innerText = data.ugv_t == null ?'-': data.ugv_t.toFixed(1);
         document.getElementById("agent2-height").innerText = data.ugv_h == null ?'-': Math.round(data.ugv_h);
     }
 }
