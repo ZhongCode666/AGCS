@@ -14,6 +14,10 @@ function executeThreshold() {
 function executeDH() {
     const dValue = Number(document.getElementById('d-input').value);
     const hValue = Number(document.getElementById('h-input').value);
+    if (dValue == "" || hValue == ""){
+        alert('执行DH设置失败,DH为空！🤯');
+        return
+    }
     flag = setDH(dValue, hValue);
     if(flag){
         alert('执行DH设置成功！😀');
