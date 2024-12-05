@@ -12,13 +12,14 @@ function executeThreshold() {
 
 // 执行 D-H 操作
 function executeDH() {
-    const dValue = Number(document.getElementById('d-input').value);
-    const hValue = Number(document.getElementById('h-input').value);
-    if (dValue == "" || hValue == ""){
+    const dValue = document.getElementById('d-input').value;
+    const hValue = document.getElementById('h-input').value;
+    
+    if (dValue === '' || hValue === ''){
         alert('执行DH设置失败,DH为空！🤯');
         return
     }
-    flag = setDH(dValue, hValue);
+    flag = setDH(Number(dValue), Number(hValue));
     if(flag){
         alert('执行DH设置成功！😀');
     }
